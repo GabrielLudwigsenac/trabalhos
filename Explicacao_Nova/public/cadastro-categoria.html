@@ -1,0 +1,28 @@
+<!-- public/cadastro-categoria.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Categoria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Cadastro de Categoria</h1>
+    <form id="formCategoria">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" rows="3"></textarea>
+        </div>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <a href="index.html" class="voltar">Voltar</a>
+    <div id="mensagem"></div>
+
+    <script src="js/categoria.js"></script>
+</body>
+</html>

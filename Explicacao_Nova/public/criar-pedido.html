@@ -1,0 +1,63 @@
+<!-- public/criar-pedido.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Pedido</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Criar Pedido</h1>
+    <form id="formPedido">
+        <div class="form-group">
+            <label for="usuario_id">Usuário:</label>
+            <select id="usuario_id" required>
+                <option value="">Selecione um usuário</option>
+            </select>
+        </div>
+        
+        <h3>Adicionar Itens</h3>
+        <div class="form-group">
+            <label for="produto_id">Produto:</label>
+            <select id="produto_id">
+                <option value="">Selecione um produto</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" min="1" value="1">
+        </div>
+        <button type="button" id="btnAdicionar">Adicionar Item</button>
+        
+        <div id="itensPedido">
+            <h3>Itens do Pedido</h3>
+            <table id="tabelaItens">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço Unitário</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                        <td id="totalPedido">R$ 0,00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <button type="submit">Finalizar Pedido</button>
+    </form>
+    <a href="index.html" class="voltar">Voltar</a>
+    <div id="mensagem"></div>
+
+    <script src="js/pedido.js"></script>
+</body>
+</html>

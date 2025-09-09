@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Vocacional Neon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; }
+    .neon-bg { background: radial-gradient(circle at top, #0f172a, #020617 80%); }
+    .question-card { background: rgba(17, 24, 39, 0.9); border: 2px solid #6366f1; box-shadow: 0 0 20px #6366f1aa; }
+    .neon-btn { transition: transform .2s ease, box-shadow .3s ease; }
+    .neon-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px #22d3ee; }
+    .result-panel { background: rgba(6, 182, 212, 0.15); border: 2px solid #06b6d4; box-shadow: 0 0 25px #06b6d488; }
+  </style>
+</head>
+<body class="neon-bg min-h-screen flex items-center justify-center p-6 text-white">
+  <div class="w-full max-w-xl text-center">
+
+    <!-- Tela Inicial -->
+    <div id="start-screen" class="space-y-6">
+      <h1 class="text-4xl font-extrabold tracking-wide"> Quiz Vocacional</h1>
+      <p class="text-gray-300">Descubra seu perfil profissional em poucos cliques!</p>
+      <button id="start-button" class="neon-btn bg-cyan-500 hover:bg-cyan-400 px-10 py-4 rounded-full font-bold text-lg">Iniciar</button>
+    </div>
+
+    <!-- Tela do Quiz -->
+    <div id="quiz-screen" class="hidden">
+      <div class="mb-6 flex justify-between items-center">
+        <span>Pergunta <span id="question-number">1</span>/<span id="total-questions">8</span></span>
+        <div class="w-40 bg-gray-700 h-2 rounded-full">
+          <div id="progress-bar" class="h-2 bg-cyan-400 rounded-full" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="question-card rounded-2xl p-8 mb-6 animate-fadeIn">
+        <h2 id="question-text" class="text-2xl font-semibold"></h2>
+      </div>
+
+      <div id="options-container" class="flex justify-center gap-10">
+        <button id="yes-btn" class="neon-btn bg-green-500 hover:bg-green-400 text-white w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold shadow-lg">✔️</button>
+        <button id="no-btn" class="neon-btn bg-red-500 hover:bg-red-400 text-white w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold shadow-lg">✖️</button>
+      </div>
+    </div>
+
+    <!-- Tela de Resultado -->
+    <div id="result-screen" class="hidden">
+      <div class="result-panel rounded-3xl p-10">
+        <h2 class="text-xl">Seu perfil é:</h2>
+        <h1 id="result-category-title" class="text-4xl font-extrabold my-4"></h1>
+        <p id="result-description" class="text-gray-200"></p>
+      </div>
+      <button id="restart-button" class="mt-6 px-8 py-3 bg-gray-700 hover:bg-gray-600 rounded-full">Refazer</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { question: "Você está empregado?" },
+      { question: "Atualmente você está estudando?" },
+      { question: "Você domina o uso do computador (pacote Office)?" },
+      { question: "Já utiliza Inteligência Artificial em seu dia a dia?" },
+      { question: "Fez algum curso de atualização nos últimos 2 anos?" },
+      { question: "Possui aplicativos em celular utilizados para o trabalho?" },
+      { question: "Você compreende minimamente um outro idioma?" },
+      { question: "Já tem um objetivo profissional definido?" },
+    ];
+
+    let currentQuestionIndex = 0;
+    let userAnswers = {};
+
+    const startScreen = document.getElementById('start-screen');
+    const quizScreen = document.getElementById('quiz-screen');
+    const resultScreen = document.getElementById('result-screen');
+    const startButton = document.getElementById('start-button');
+    const restartButton = document.getElementById('restart-button');
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const questionNumber = document.getElementById('question-number');
+    const totalQuestionsElem = document.getElementById('total-questions');
+    const progressBar = document.getElementById('progress-bar');
+    const questionText = document.getElementById('question-text');
+    const resultCategoryTitle = document.getElementById('result-category-title');
+    const resultDescription = document.getElementById('result-description');
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      userAnswers = {};
+      startScreen.classList.add('hidden');
+      resultScreen.classList.add('hidden');
+      quizScreen.classList.remove('hidden');
+      totalQuestionsElem.textContent = questions.length;
+      displayQuestion();
+    }
+
+    function displayQuestion() {
+      if (currentQuestionIndex < questions.length) {
+        const q = questions[currentQuestionIndex];
+        questionNumber.textContent = currentQuestionIndex + 1;
+        questionText.textContent = q.question;
+        progressBar.style.width = `${(currentQuestionIndex/questions.length)*100}%`;
+      } else {
+        showResult();
+      }
+    }
+
+    function selectAnswer(answer) {
+      userAnswers[currentQuestionIndex] = answer;
+      currentQuestionIndex++;
+      displayQuestion();
+    }
+
+    function showResult() {
+      quizScreen.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+      progressBar.style.width = '100%';
+
+      const yesCount = Object.values(userAnswers).filter(a => a).length;
+      let profileName = '';
+      let resultMessage = '';
+
+      if (yesCount > questions.length/2) {
+        profileName = "Explorador Futurista";
+        resultMessage = "Você adora desafios e sempre busca evoluir. Áreas de liderança, inovação e tecnologia são perfeitas para você.";
+      } else if (yesCount === questions.length/2) {
+        profileName = "Mente Criativa";
+        resultMessage = "Você equilibra lógica e criatividade. Carreiras em design, TI e marketing digital podem ser o seu futuro.";
+      } else {
+        profileName = "Transformador";
+        resultMessage = "Você está pronto para mudar e descobrir novos rumos. Cursos técnicos e profissionalizantes são ideais para sua fase atual.";
+      }
+
+      resultCategoryTitle.textContent = profileName;
+      resultDescription.textContent = resultMessage;
+    }
+
+    startButton.addEventListener('click', startQuiz);
+    yesBtn.addEventListener('click', () => selectAnswer(true));
+    noBtn.addEventListener('click', () => selectAnswer(false));
+    restartButton.addEventListener('click', () => {
+      resultScreen.classList.add('hidden');
+      startScreen.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

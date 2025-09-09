@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pedidos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Meus Pedidos</h1>
+
+        <div class="form-group">
+            <label for="usuario_id">Selecione o usuário:</label>
+            <select id="usuario_id" required>
+                <option value="">Selecione um usuário</option>
+            </select>
+        </div>
+
+        <div id="listaPedidos"></div>
+
+        <a href="index.html" class="voltar">Voltar</a>
+    </div>
+
+    <script src="js/pedido.js"></script>
+</body>
+
+</html>
