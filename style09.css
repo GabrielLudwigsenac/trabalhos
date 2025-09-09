@@ -1,0 +1,11 @@
+body{
+    background-color: grey;
+}
+
+div{
+    padding: 2%;
+    margin: 20%;
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 2%;
+}

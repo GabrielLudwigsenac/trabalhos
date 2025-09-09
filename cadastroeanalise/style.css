@@ -1,0 +1,27 @@
+/* Fonte bonita e centralização */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #1a1a40, #2a0845);
+    color: #ffffff;
+    text-align: center;
+    padding: 40px;
+    margin: 0;
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #00ffcc;
+    text-shadow: 2px 2px 5px #000;
+}
+
+/* Botão */
+button {
+    background-color: #00ffcc;
+    color: #1a1a40;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1em;
+    font-weight: bold
+}
